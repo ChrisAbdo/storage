@@ -13,7 +13,7 @@ const ipfs = ipfsClient({
   protocol: "https",
 }); // leaving out the arguments will default to these values
 
-class Marketplace extends Component {
+class marketUpload extends Component {
   async componentDidMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
@@ -131,24 +131,16 @@ class Marketplace extends Component {
             <p>Loading...</p>
           </div>
         ) : (
-          <>
-            <UploadSong
-              images={this.state.images}
-              captureFile={this.captureFile}
-              uploadImage={this.uploadImage}
-              tipImageOwner={this.tipImageOwner}
-            />
-            <Main
-              images={this.state.images}
-              captureFile={this.captureFile}
-              uploadImage={this.uploadImage}
-              tipImageOwner={this.tipImageOwner}
-            />
-          </>
+          <UploadSong
+            images={this.state.images}
+            captureFile={this.captureFile}
+            uploadImage={this.uploadImage}
+            tipImageOwner={this.tipImageOwner}
+          />
         )}
       </div>
     );
   }
 }
 
-export default Marketplace;
+export default marketUpload;
