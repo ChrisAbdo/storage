@@ -72,7 +72,7 @@ function Navbar() {
   }
 
   return (
-    <div className="flex w-full justify-between px-4 py-2 border-b ">
+    <div className="flex w-full justify-between px-4 py-2 border-b border-gray-500 ">
       <link
         href="https://fonts.googleapis.com/css2?family=Comforter&family=Poppins:wght@300&family=Supermercado+One&display=swap"
         rel="stylesheet"
