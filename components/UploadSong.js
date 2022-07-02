@@ -69,7 +69,7 @@ class UploadSong extends Component {
               />
               <Input
                 className="mb-4"
-                placeholder="Song Description"
+                placeholder="Song Title"
                 id="imageDescription"
                 type="text"
                 ref={(input) => {
