@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import Identicon from "identicon.js";
 import styles from "../styles/Main.module.css";
-import { Button, Link } from "@chakra-ui/react";
+import {
+  Button,
+  Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 class Main extends Component {
   render() {
@@ -17,7 +28,10 @@ class Main extends Component {
                   class="object-cover w-full h-56 "
                   src={`https://ipfs.infura.io/ipfs/${image.hash}`}
                   alt=""
-                  style={{ maxWidth: "300px" }}
+                  // make image fit the container
+                  style={{
+                    maxWidth: "290px",
+                  }}
                 />
 
                 <div class="">
@@ -36,13 +50,13 @@ class Main extends Component {
                         className={styles.font}
                         class="border-b border-gray-500 mb-2 max-w-xs"
                       >
-                        {image.description.length > 34
-                          ? image.description.substring(0, 34) + "..."
+                        {image.description.length > 33
+                          ? image.description.substring(0, 33) + "..."
                           : image.description}
                       </p>
                     </li>
-                    <li key={key} className="space-x-40 mb-2">
-                      <small className="ml-2">
+                    <li key={key} className="space-x-9 mb-2">
+                      <small className="ml-1">
                         TIPS:{" "}
                         {window.web3.utils.fromWei(
                           image.tipAmount.toString(),
@@ -66,6 +80,13 @@ class Main extends Component {
                         }}
                       >
                         TIP 0.1 ETH
+                      </Button>
+                      <Button
+                        //on click run handleClick function
+                        onClick={this.handleClick}
+                        size="xs"
+                      >
+                        More Info
                       </Button>
                     </li>
                   </ul>
