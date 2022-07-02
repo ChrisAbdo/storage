@@ -8,6 +8,7 @@ class Main extends Component {
       <div className="flex flex-wrap justify-center">
         {this.props.images.map((image, key) => {
           return (
+            /*
             <div className="">
               <div className="" key={key}>
                 <div className="">
@@ -54,6 +55,46 @@ class Main extends Component {
                     </button>
                   </li>
                 </ul>
+              </div>
+            </div>
+            */
+            <div class="block overflow-hidden rounded-2xl mr-2 mb-2 border">
+              <img
+                class="object-cover w-full h-56"
+                src={`https://ipfs.infura.io/ipfs/${image.hash}`}
+                alt=""
+              />
+
+              <div class="p-4 ">
+                <p class="text-xs ">
+                  Uploaded by: {this.props.account.slice(0, 5)}...
+                  {this.props.account.slice(-4)}
+                </p>
+
+                <h5 class="text-sm ">{image.description}</h5>
+
+                <p class="mt-1 text-xs opacity-0">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Rerum nobis aliquid accusamus? Sint, sequi voluptas.
+                </p>
+                <span class="text-gray-500">
+                  {window.web3.utils.fromWei(
+                    image.tipAmount.toString(),
+                    "Ether"
+                  )}{" "}
+                  ETH
+                </span>
+                <button
+                  class="ml-2  font-bold py-2 px-4 rounded-full"
+                  name={image.id}
+                  onClick={(event) => {
+                    let tipAmount = window.web3.utils.toWei("0.1", "Ether");
+                    console.log(event.target.name, tipAmount);
+                    this.props.tipImageOwner(event.target.name, tipAmount);
+                  }}
+                >
+                  TIP 0.1 ETH
+                </button>
               </div>
             </div>
           );

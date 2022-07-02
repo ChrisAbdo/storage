@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import { Input } from "@chakra-ui/react";
+import { Input, Button } from "@chakra-ui/react";
 class UploadSong extends Component {
   render() {
     return (
-      <form
-        className=""
-        onSubmit={(event) => {
-          event.preventDefault();
-          const description = this.imageDescription.value;
-          this.props.uploadImage(description);
-        }}
-      >
-        {/*
+      // div that centers the uploadform
+      <div className="flex flex-col items-center justify-center mb-3">
+        <form
+          className="flex items-center justify-center"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const description = this.imageDescription.value;
+            this.props.uploadImage(description);
+          }}
+        >
+          {/*
                 <input
                   type="file"
                   accept=".jpg, .jpeg, .png, .bmp, .gif"
@@ -35,13 +37,15 @@ class UploadSong extends Component {
                 </button>
               </form>
               */}
-        <div class="p-6 max-w-sm  rounded-lg border shadow-md flex-1 items-center justify-content">
-          <div className="flex items-center justify-content" href="#">
+          <div class="p-6 max-w-sm text-center  rounded-lg border shadow-md flex-1 items-center justify-content ">
+            <div
+              className="flex items-center justify-content text-center"
+              href="#"
+            ></div>
             <h5 class="mb-2 text-2xl font-bold tracking-tight ">Upload Song</h5>
-          </div>
-          <p class="mb-3 font-normal ">Accepted Files: mp3, mp4, wav</p>
-          <input
-            class="form-control
+            <p class="mb-3 font-normal ">Accepted Files: mp3, mp4, wav</p>
+            <input
+              class="form-control
                                     w-full
                                     px-3
                                     py-0.5
@@ -53,29 +57,27 @@ class UploadSong extends Component {
                                     ease-in-out
                                     mb-4
 "
-            type="file"
-            id="formFile"
-            accept=".jpg, .jpeg, .png, .bmp, .gif"
-            onChange={this.props.captureFile}
-          />
-          <Input
-            className="mb-4"
-            placeholder="Song Description"
-            id="imageDescription"
-            type="text"
-            ref={(input) => {
-              this.imageDescription = input;
-            }}
-            required
-          />
-          <button
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+              type="file"
+              id="formFile"
+              accept=".jpg, .jpeg, .png, .bmp, .gif"
+              onChange={this.props.captureFile}
+            />
+            <Input
+              className="mb-4"
+              placeholder="Song Description"
+              id="imageDescription"
+              type="text"
+              ref={(input) => {
+                this.imageDescription = input;
+              }}
+              required
+            />
+            <Button colorScheme="gray" variant="outline" type="submit">
+              Upload
+            </Button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
