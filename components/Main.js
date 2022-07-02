@@ -13,16 +13,15 @@ class Main extends Component {
             style={{ maxWidth: "500px" }}
           >
             <div className="content mr-auto ml-auto">
-              <p>&nbsp;</p>
-              {/*
-              <h2>Share Image</h2>
               <form
+                className="mb-4"
                 onSubmit={(event) => {
                   event.preventDefault();
                   const description = this.imageDescription.value;
                   this.props.uploadImage(description);
                 }}
               >
+                {/*
                 <input
                   type="file"
                   accept=".jpg, .jpeg, .png, .bmp, .gif"
@@ -46,34 +45,50 @@ class Main extends Component {
                 </button>
               </form>
               */}
-              <div class="p-6 max-w-sm  rounded-lg border shadow-md ">
-                <div href="#">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight ">
-                    Upload Song
-                  </h5>
-                </div>
-                <p class="mb-3 font-normal ">Accepted Files: mp3, mp4, wav</p>
-                <Input className="mb-2" placeholder="Song Description" />
-                <div
-                  href="#"
-                  class="inline-flex items-center py-2 px-3 text-sm font-medium text-center  rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Read more
-                  <svg
-                    class="ml-2 -mr-1 w-4 h-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+                <div class="p-6 max-w-sm  rounded-lg border shadow-md flex-1 items-center justify-content">
+                  <div className="flex items-center justify-content" href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight ">
+                      Upload Song
+                    </h5>
+                  </div>
+                  <p class="mb-3 font-normal ">Accepted Files: mp3, mp4, wav</p>
+                  <input
+                    class="form-control
+                                    w-full
+                                    px-3
+                                    py-0.5
+                                    text-base
+                                     bg-clip-padding
+                                    border border-gray-500
+                                    rounded
+                                    transition
+                                    ease-in-out
+                                    mb-4
+"
+                    type="file"
+                    id="formFile"
+                    accept=".jpg, .jpeg, .png, .bmp, .gif"
+                    onChange={this.props.captureFile}
+                  />
+                  <Input
+                    className="mb-4"
+                    placeholder="Song Description"
+                    id="imageDescription"
+                    type="text"
+                    ref={(input) => {
+                      this.imageDescription = input;
+                    }}
+                    required
+                  />
+                  <button
+                    type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
+                    Submit
+                  </button>
                 </div>
-              </div>
-              <p>&nbsp;</p>
+              </form>
+
               {this.props.images.map((image, key) => {
                 return (
                   <div className="card mb-4" key={key}>
