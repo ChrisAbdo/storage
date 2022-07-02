@@ -1,0 +1,17 @@
+.navbarText {
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .navbarHeader {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .connectButton {
+    font-family: 'Poppins', sans-serif;
+  }

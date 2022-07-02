@@ -1,6 +1,6 @@
 import Melomania from "../build/contracts/Melomania.json";
 import React, { Component } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/HomeNavbar";
 import Main from "../components/Main";
 import Web3 from "web3";
 

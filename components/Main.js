@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Identicon from "identicon.js";
+import { Input } from "@chakra-ui/react";
 
 class Main extends Component {
   render() {
@@ -13,6 +14,7 @@ class Main extends Component {
           >
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
+              {/*
               <h2>Share Image</h2>
               <form
                 onSubmit={(event) => {
@@ -43,6 +45,34 @@ class Main extends Component {
                   Upload!
                 </button>
               </form>
+              */}
+              <div class="p-6 max-w-sm  rounded-lg border shadow-md ">
+                <div href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight ">
+                    Upload Song
+                  </h5>
+                </div>
+                <p class="mb-3 font-normal ">Accepted Files: mp3, mp4, wav</p>
+                <Input className="mb-2" placeholder="Song Description" />
+                <div
+                  href="#"
+                  class="inline-flex items-center py-2 px-3 text-sm font-medium text-center  rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Read more
+                  <svg
+                    class="ml-2 -mr-1 w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
               <p>&nbsp;</p>
               {this.props.images.map((image, key) => {
                 return (
