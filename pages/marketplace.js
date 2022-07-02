@@ -94,6 +94,7 @@ class Marketplace extends Component {
         .send({ from: this.state.account })
         .on("transactionHash", (hash) => {
           this.setState({ loading: false });
+          window.location.reload();
         });
     });
   };
@@ -105,6 +106,7 @@ class Marketplace extends Component {
       .send({ from: this.state.account, value: tipAmount })
       .on("transactionHash", (hash) => {
         this.setState({ loading: false });
+        window.location.reload();
       });
   }
 
@@ -121,7 +123,6 @@ class Marketplace extends Component {
     this.tipImageOwner = this.tipImageOwner.bind(this);
     this.captureFile = this.captureFile.bind(this);
   }
-
   render() {
     return (
       <div>

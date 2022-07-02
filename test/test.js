@@ -1,17 +1,17 @@
-const Decentragram = artifacts.require("./Decentragram.sol");
+const Melomania = artifacts.require("./Melomania.sol");
 
 require("chai").use(require("chai-as-promised")).should();
 
-contract("Decentragram", ([deployer, author, tipper]) => {
-  let decentragram;
+contract("Melomania", ([deployer, author, tipper]) => {
+  let melomania;
 
   before(async () => {
-    decentragram = await Decentragram.deployed();
+    melomania = await Melomania.deployed();
   });
 
   describe("deployment", async () => {
     it("deploys successfully", async () => {
-      const address = await decentragram.address;
+      const address = await melomania.address;
       assert.notEqual(address, 0x0);
       assert.notEqual(address, "");
       assert.notEqual(address, null);
@@ -19,8 +19,8 @@ contract("Decentragram", ([deployer, author, tipper]) => {
     });
 
     it("has a name", async () => {
-      const name = await decentragram.name();
-      assert.equal(name, "Decentragram");
+      const name = await melomania.name();
+      assert.equal(name, "Melomania");
     });
   });
 
@@ -29,10 +29,10 @@ contract("Decentragram", ([deployer, author, tipper]) => {
     const hash = "QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb";
 
     before(async () => {
-      result = await decentragram.uploadImage(hash, "Image description", {
+      result = await melomania.uploadImage(hash, "Image description", {
         from: author,
       });
-      imageCount = await decentragram.imageCount();
+      imageCount = await melomania.imageCount();
     });
 
     //check event
@@ -51,17 +51,17 @@ contract("Decentragram", ([deployer, author, tipper]) => {
       assert.equal(event.author, author, "author is correct");
 
       // FAILURE: Image must have hash
-      await decentragram.uploadImage("", "Image description", { from: author })
+      await melomania.uploadImage("", "Image description", { from: author })
         .should.be.rejected;
 
       // FAILURE: Image must have description
-      await decentragram.uploadImage("Image hash", "", { from: author }).should
-        .be.rejected;
+      await melomania.uploadImage("Image hash", "", { from: author }).should.be
+        .rejected;
     });
 
     //check from Struct
     it("lists images", async () => {
-      const image = await decentragram.images(imageCount);
+      const image = await melomania.images(imageCount);
       assert.equal(image.id.toNumber(), imageCount.toNumber(), "id is correct");
       assert.equal(image.hash, hash, "Hash is correct");
       assert.equal(
@@ -79,7 +79,7 @@ contract("Decentragram", ([deployer, author, tipper]) => {
       oldAuthorBalance = await web3.eth.getBalance(author);
       oldAuthorBalance = new web3.utils.BN(oldAuthorBalance);
 
-      result = await decentragram.tipImageOwner(imageCount, {
+      result = await melomania.tipImageOwner(imageCount, {
         from: tipper,
         value: web3.utils.toWei("1", "Ether"),
       });
@@ -114,7 +114,7 @@ contract("Decentragram", ([deployer, author, tipper]) => {
       assert.equal(newAuthorBalance.toString(), expectedBalance.toString());
 
       // FAILURE: Tries to tip a image that does not exist
-      await decentragram.tipImageOwner(99, {
+      await melomania.tipImageOwner(99, {
         from: tipper,
         value: web3.utils.toWei("1", "Ether"),
       }).should.be.rejected;

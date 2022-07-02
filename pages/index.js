@@ -1,12 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import ThemeSwitcher from "../components/ThemeSwitcher";
 import Navbar from "../components/HomeNavbar";
 import { Text, Button } from "@chakra-ui/react";
 import { Component, useState } from "react";
-import { ethers } from "ethers";
-import Web3 from "web3";
 import styles from "../styles/Home.module.css";
 
 class Home extends Component {

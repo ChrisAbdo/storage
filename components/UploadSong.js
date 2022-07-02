@@ -40,7 +40,7 @@ class UploadSong extends Component {
                 </button>
               </form>
               */}
-            <div class="p-6 max-w-sm text-center  rounded-lg border border-gray-500 shadow-md flex-1 items-center justify-content ">
+            <div class="p-6 max-w-sm text-center   block overflow-hidden rounded-2xl mr-2 mb-2 border border-gray-500 shadow-md flex-1 items-center justify-content ">
               <div
                 className="flex items-center justify-content text-center"
                 href="#"
