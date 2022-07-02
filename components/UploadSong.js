@@ -70,7 +70,10 @@ class UploadSong extends Component {
               <Input
                 className="mb-4"
                 placeholder="Song Title"
+                pattern="[^()/><\][\\\x22,&;|]+"
                 id="imageDescription"
+                // only allow 38 characters
+                maxLength="38"
                 type="text"
                 ref={(input) => {
                   this.imageDescription = input;

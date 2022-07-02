@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Identicon from "identicon.js";
 import styles from "../styles/Main.module.css";
+import { Button, Link } from "@chakra-ui/react";
 
 class Main extends Component {
   render() {
     return (
       // div that only allows 3 posts per row.
       <div className={styles.uploadFont}>
+        <h1 className="ml-2">Assorted: Highest Tipped</h1>
         <div className="flex flex-wrap justify-center">
           {this.props.images.map((image, key) => {
             return (
@@ -15,17 +17,32 @@ class Main extends Component {
                   class="object-cover w-full h-56 "
                   src={`https://ipfs.infura.io/ipfs/${image.hash}`}
                   alt=""
+                  style={{ maxWidth: "300px" }}
                 />
 
                 <div class="">
-                  <small className="">{image.author}</small>
+                  <Link
+                    href={`https://www.etherscan.io/address/${image.author}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs"
+                  >
+                    {image.author}
+                  </Link>
                   <ul id="imageList" className="">
                     <li className="">
                       <p class=""></p>
-                      <p className={styles.font}>{image.description}</p>
+                      <p
+                        className={styles.font}
+                        class="border-b border-gray-500 mb-2 max-w-xs"
+                      >
+                        {image.description.length > 34
+                          ? image.description.substring(0, 34) + "..."
+                          : image.description}
+                      </p>
                     </li>
-                    <li key={key} className="">
-                      <small className="">
+                    <li key={key} className="space-x-40 mb-2">
+                      <small className="ml-2">
                         TIPS:{" "}
                         {window.web3.utils.fromWei(
                           image.tipAmount.toString(),
@@ -33,8 +50,8 @@ class Main extends Component {
                         )}{" "}
                         ETH
                       </small>
-                      <button
-                        className=""
+                      <Button
+                        size="xs"
                         name={image.id}
                         onClick={(event) => {
                           let tipAmount = window.web3.utils.toWei(
@@ -49,7 +66,7 @@ class Main extends Component {
                         }}
                       >
                         TIP 0.1 ETH
-                      </button>
+                      </Button>
                     </li>
                   </ul>
                 </div>
