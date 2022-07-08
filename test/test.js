@@ -1,17 +1,17 @@
-const Melomania = artifacts.require("./Melomania.sol");
+const DStorage = artifacts.require("./DStorage.sol");
 
 require("chai").use(require("chai-as-promised")).should();
 
-contract("Melomania", ([deployer, author, tipper]) => {
-  let melomania;
+contract("DStorage", ([deployer, uploader]) => {
+  let dstorage;
 
   before(async () => {
-    melomania = await Melomania.deployed();
+    dstorage = await DStorage.deployed();
   });
 
   describe("deployment", async () => {
     it("deploys successfully", async () => {
-      const address = await melomania.address;
+      const address = await dstorage.address;
       assert.notEqual(address, 0x0);
       assert.notEqual(address, "");
       assert.notEqual(address, null);
@@ -19,105 +19,115 @@ contract("Melomania", ([deployer, author, tipper]) => {
     });
 
     it("has a name", async () => {
-      const name = await melomania.name();
-      assert.equal(name, "Melomania");
+      const name = await dstorage.name();
+      assert.equal(name, "DStorage");
     });
   });
 
-  describe("images", async () => {
-    let result, imageCount;
-    const hash = "QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb";
+  describe("file", async () => {
+    let result, fileCount;
+    const fileHash = "QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb";
+    const fileSize = "1";
+    const fileType = "TypeOfTheFile";
+    const fileName = "NameOfTheFile";
+    const fileDescription = "DescriptionOfTheFile";
 
     before(async () => {
-      result = await melomania.uploadImage(hash, "Image description", {
-        from: author,
-      });
-      imageCount = await melomania.imageCount();
+      result = await dstorage.uploadFile(
+        fileHash,
+        fileSize,
+        fileType,
+        fileName,
+        fileDescription,
+        { from: uploader }
+      );
+      fileCount = await dstorage.fileCount();
     });
 
     //check event
-    it("creates images", async () => {
+    it("upload file", async () => {
       // SUCESS
-      assert.equal(imageCount, 1);
+      assert.equal(fileCount, 1);
       const event = result.logs[0].args;
-      assert.equal(event.id.toNumber(), imageCount.toNumber(), "id is correct");
-      assert.equal(event.hash, hash, "Hash is correct");
       assert.equal(
-        event.description,
-        "Image description",
-        "description is correct"
+        event.fileId.toNumber(),
+        fileCount.toNumber(),
+        "Id is correct"
       );
-      assert.equal(event.tipAmount, "0", "tip amount is correct");
-      assert.equal(event.author, author, "author is correct");
+      assert.equal(event.fileHash, fileHash, "Hash is correct");
+      assert.equal(event.fileSize, fileSize, "Size is correct");
+      assert.equal(event.fileType, fileType, "Type is correct");
+      assert.equal(event.fileName, fileName, "Name is correct");
+      assert.equal(
+        event.fileDescription,
+        fileDescription,
+        "Description is correct"
+      );
+      assert.equal(event.uploader, uploader, "Uploader is correct");
 
-      // FAILURE: Image must have hash
-      await melomania.uploadImage("", "Image description", { from: author })
-        .should.be.rejected;
+      // FAILURE: File must have hash
+      await dstorage.uploadFile(
+        "",
+        fileSize,
+        fileType,
+        fileName,
+        fileDescription,
+        { from: uploader }
+      ).should.be.rejected;
 
-      // FAILURE: Image must have description
-      await melomania.uploadImage("Image hash", "", { from: author }).should.be
-        .rejected;
+      // FAILURE: File must have size
+      await dstorage.uploadFile(
+        fileHash,
+        "",
+        fileType,
+        fileName,
+        fileDescription,
+        { from: uploader }
+      ).should.be.rejected;
+
+      // FAILURE: File must have type
+      await dstorage.uploadFile(
+        fileHash,
+        fileSize,
+        "",
+        fileName,
+        fileDescription,
+        { from: uploader }
+      ).should.be.rejected;
+
+      // FAILURE: File must have name
+      await dstorage.uploadFile(
+        fileHash,
+        fileSize,
+        fileType,
+        "",
+        fileDescription,
+        { from: uploader }
+      ).should.be.rejected;
+
+      // FAILURE: File must have description
+      await dstorage.uploadFile(fileHash, fileSize, fileType, fileName, "", {
+        from: uploader,
+      }).should.be.rejected;
     });
 
     //check from Struct
-    it("lists images", async () => {
-      const image = await melomania.images(imageCount);
-      assert.equal(image.id.toNumber(), imageCount.toNumber(), "id is correct");
-      assert.equal(image.hash, hash, "Hash is correct");
+    it("lists file", async () => {
+      const file = await dstorage.files(fileCount);
       assert.equal(
-        image.description,
-        "Image description",
+        file.fileId.toNumber(),
+        fileCount.toNumber(),
+        "id is correct"
+      );
+      assert.equal(file.fileHash, fileHash, "Hash is correct");
+      assert.equal(file.fileSize, fileSize, "Size is correct");
+      assert.equal(file.fileName, fileName, "Size is correct");
+      assert.equal(
+        file.fileDescription,
+        fileDescription,
         "description is correct"
       );
-      assert.equal(image.tipAmount, "0", "tip amount is correct");
-      assert.equal(image.author, author, "author is correct");
-    });
-
-    it("allows users to tip images", async () => {
-      // Track the author balance before purchase
-      let oldAuthorBalance;
-      oldAuthorBalance = await web3.eth.getBalance(author);
-      oldAuthorBalance = new web3.utils.BN(oldAuthorBalance);
-
-      result = await melomania.tipImageOwner(imageCount, {
-        from: tipper,
-        value: web3.utils.toWei("1", "Ether"),
-      });
-
-      // SUCCESS
-      const event = result.logs[0].args;
-      assert.equal(event.id.toNumber(), imageCount.toNumber(), "id is correct");
-      assert.equal(event.hash, hash, "Hash is correct");
-      assert.equal(
-        event.description,
-        "Image description",
-        "description is correct"
-      );
-      assert.equal(
-        event.tipAmount,
-        "1000000000000000000",
-        "tip amount is correct"
-      );
-      assert.equal(event.author, author, "author is correct");
-
-      // Check that author received funds
-      let newAuthorBalance;
-      newAuthorBalance = await web3.eth.getBalance(author);
-      newAuthorBalance = new web3.utils.BN(newAuthorBalance);
-
-      let tipImageOwner;
-      tipImageOwner = web3.utils.toWei("1", "Ether");
-      tipImageOwner = new web3.utils.BN(tipImageOwner);
-
-      const expectedBalance = oldAuthorBalance.add(tipImageOwner);
-
-      assert.equal(newAuthorBalance.toString(), expectedBalance.toString());
-
-      // FAILURE: Tries to tip a image that does not exist
-      await melomania.tipImageOwner(99, {
-        from: tipper,
-        value: web3.utils.toWei("1", "Ether"),
-      }).should.be.rejected;
+      assert.equal(file.uploader, uploader, "uploader is correct");
     });
   });
 });

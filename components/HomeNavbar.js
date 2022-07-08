@@ -78,7 +78,7 @@ function Navbar() {
         rel="stylesheet"
       />
       <Link href="/">
-        <h1 className={styles.navbarText}>0xChange</h1>
+        <h1 className={styles.navbarText}>Web3.Me</h1>
       </Link>
 
       <form class="flex items-center">

@@ -1,7 +1,7 @@
 import DStorage from "../build/contracts/DStorage.json";
 import React, { Component } from "react";
 import Navbar from "../components/HomeNavbar";
-import Main from "../components/Main";
+import Profile from "../components/Profile";
 import Web3 from "web3";
 
 const ipfsClient = require("ipfs-http-client");
@@ -11,7 +11,7 @@ const ipfs = ipfsClient({
   protocol: "https",
 }); // leaving out the arguments will default to these values
 
-class Marketplace extends Component {
+class profile extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
@@ -139,7 +139,7 @@ class Marketplace extends Component {
             <p>Loading...</p>
           </div>
         ) : (
-          <Main
+          <Profile
             files={this.state.files}
             captureFile={this.captureFile}
             uploadFile={this.uploadFile}
@@ -150,4 +150,4 @@ class Marketplace extends Component {
   }
 }
 
-export default Marketplace;
+export default profile;

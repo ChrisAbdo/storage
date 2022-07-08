@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { convertBytes } from "./helpers";
 import moment from "moment";
 
-class Main extends Component {
+class Profile extends Component {
   render() {
     return (
       <div className="container-fluid mt-5 text-center">
@@ -86,7 +86,9 @@ class Main extends Component {
                     </th>
                   </tr>
                 </thead>
+
                 {this.props.files.map((file, key) => {
+                  // on
                   return (
                     <thead style={{ fontSize: "12px" }} key={key}>
                       <tr>
@@ -108,7 +110,7 @@ class Main extends Component {
                             rel="noopener noreferrer"
                             target="_blank"
                           >
-                            {file.uploader.substring(0, 10)}...
+                            {file.uploader}
                           </a>
                         </td>
                         <td>
@@ -135,4 +137,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default Profile;

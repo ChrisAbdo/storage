@@ -26,14 +26,14 @@ class Home extends Component {
               fontWeight="extrabold"
               className={styles.welcomeText}
             >
-              Welcome to 0xChange
+              Welcome to Web3.me
             </Text>
             <Text
               fontSize="3xl"
               fontWeight="extrabold"
               className={styles.welcomeText}
             >
-              a one of a kind multi-chain wallet and exchange
+              an on-chain portfolio
             </Text>
             <Text
               fontSize="3xl"
@@ -44,7 +44,7 @@ class Home extends Component {
             </Text>
             <div className="mt-6">
               <Link href="/marketplace">
-                <Button>Marketplace</Button>
+                <Button>Search</Button>
               </Link>
             </div>
           </div>
